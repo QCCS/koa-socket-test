@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket test</title>
+    <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+</head>
+<body>
+<input type="text" id="pl" />
+<input type="button" value="发送" id="submit" />
+<input type="button" value="关闭" id="close" />
+</body>
+<script>
+    var socket = io.connect('http://127.0.0.1:3000');
+    socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+    });
+    document.getElementById("submit").onclick = function () {
+        var str = document.getElementById("pl").value;
+        socket.emit('message', str);
+    }
+</script>
+</html>
